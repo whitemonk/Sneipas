@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNEIPAS — Creative Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Libre+Baskerville:ital@0;1&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f2ead8;
+    --dark: #1a1510;
+    --brown: #3d2b1f;
+    --tan: #c4a97d;
+    --rust: #8b3a2a;
+    --muted: #7a6a55;
+    --grain-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--cream);
+    color: var(--dark);
+    font-family: 'Libre Baskerville', serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: var(--grain-url);
+    background-repeat: repeat;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.6;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(242, 234, 216, 0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(61, 43, 31, 0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Special Elite', cursive;
+    font-size: 1.5rem;
+    letter-spacing: 0.12em;
+    color: var(--dark);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--dark); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-year {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--tan);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(4rem, 12vw, 10rem);
+    font-weight: 700;
+    line-height: 0.9;
+    color: var(--dark);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .hero-sub {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 420px;
+    margin: 0 auto 3rem;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    font-family: 'Special Elite', cursive;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: var(--dark);
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    transition: background 0.3s;
+    border: 1px solid var(--dark);
+  }
+
+  .hero-cta:hover { background: var(--brown); }
+
+  .hero-border-top {
+    position: absolute;
+    top: 80px; left: 3rem; right: 3rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--tan), transparent);
+  }
+
+  .hero-border-bottom {
+    position: absolute;
+    bottom: 3rem; left: 3rem; right: 3rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--tan), transparent);
+  }
+
+  /* ─── SECTION BASE ─── */
+  section {
+    padding: 6rem 4rem;
+  }
+
+  .section-label {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--tan);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--dark);
+    margin-bottom: 2rem;
+  }
+
+  .section-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--rust);
+    margin-bottom: 2rem;
+  }
+
+  /* ─── ABOUT ─── */
+  #about {
+    background: var(--dark);
+    color: var(--cream);
+  }
+
+  #about .section-label { color: var(--tan); }
+  #about .section-title { color: var(--cream); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .about-text p {
+    color: rgba(242, 234, 216, 0.75);
+    margin-bottom: 1.2rem;
+  }
+
+  .about-text p:last-child { margin-bottom: 0; }
+
+  .about-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .about-card {
+    border: 1px solid rgba(196, 169, 125, 0.3);
+    padding: 1.5rem;
+    position: relative;
+  }
+
+  .about-card-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--rust);
+    line-height: 1;
+  }
+
+  .about-card-label {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--tan);
+    margin-top: 0.3rem;
+  }
+
+  /* ─── WORK / PORTFOLIO ─── */
+  #work {
+    background: var(--cream);
+  }
+
+  .work-header {
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  .work-filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.2rem;
+    border: 1px solid var(--muted);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: var(--dark);
+    color: var(--cream);
+    border-color: var(--dark);
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .work-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 4/3;
+    background: var(--brown);
+  }
+
+  .work-item.wide {
+    grid-column: span 2;
+    aspect-ratio: 16/9;
+  }
+
+  .work-item .work-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(30%) contrast(110%) brightness(0.9);
+    transition: transform 0.6s ease, filter 0.6s ease;
+  }
+
+  /* Placeholder film frames for demo */
+  .work-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+  }
+
+  .work-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 18px,
+      rgba(0,0,0,0.05) 18px,
+      rgba(0,0,0,0.05) 19px
+    );
+  }
+
+  .work-placeholder-icon {
+    font-family: 'Special Elite', cursive;
+    font-size: 2rem;
+    color: rgba(242, 234, 216, 0.3);
+  }
+
+  .work-placeholder-type {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(242, 234, 216, 0.4);
+  }
+
+  /* Film frame decorations */
+  .work-item::before,
+  .work-item::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 12px;
+    z-index: 2;
+    background: repeating-linear-gradient(
+      180deg,
+      var(--dark) 0, var(--dark) 8px,
+      transparent 8px, transparent 14px
+    );
+    pointer-events: none;
+  }
+
+  .work-item::before { left: 0; }
+  .work-item::after { right: 0; }
+
+  .work-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 21, 16, 0.75);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem 1.5rem 1.5rem 2rem;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .work-item:hover .work-overlay { opacity: 1; }
+  .work-item:hover .work-thumb { transform: scale(1.04); filter: sepia(10%) contrast(110%) brightness(0.8); }
+
+  .work-overlay-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+  }
+
+  .work-overlay-type {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--tan);
+  }
+
+  /* ─── LIGHTBOX ─── */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(26, 21, 16, 0.96);
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .lightbox.open { display: flex; }
+
+  .lightbox-inner {
+    max-width: 900px;
+    width: 100%;
+    position: relative;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+    font-family: 'Special Elite', cursive;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--tan);
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .lightbox-media {
+    width: 100%;
+    background: var(--dark);
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox-media video,
+  .lightbox-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .lightbox-caption {
+    margin-top: 1rem;
+    color: rgba(242, 234, 216, 0.6);
+    font-style: italic;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  /* ─── MERCH ─── */
+  #merch {
+    background: #1a1510;
+    color: var(--cream);
+  }
+
+  #merch .section-label { color: var(--tan); }
+  #merch .section-title { color: var(--cream); }
+
+  .merch-intro {
+    color: rgba(242, 234, 216, 0.65);
+    max-width: 500px;
+    margin-bottom: 3rem;
+    font-style: italic;
+  }
+
+  .merch-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .merch-item {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .merch-thumb {
+    aspect-ratio: 3/4;
+    background: var(--brown);
+    margin-bottom: 1rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .merch-thumb::after {
+    content: attr(data-label);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Special Elite', cursive;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(242, 234, 216, 0.25);
+  }
+
+  .merch-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(20%) contrast(105%);
+    transition: transform 0.5s;
+  }
+
+  .merch-item:hover .merch-thumb img { transform: scale(1.05); }
+
+  .merch-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+  }
+
+  .merch-price {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--tan);
+    margin-bottom: 0.5rem;
+  }
+
+  .merch-btn {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: none;
+    border: 1px solid rgba(196, 169, 125, 0.4);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+  }
+
+  .merch-btn:hover {
+    background: var(--tan);
+    color: var(--dark);
+    border-color: var(--tan);
+  }
+
+  /* ─── CONTACT ─── */
+  #contact {
+    background: var(--cream);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  .contact-info p {
+    color: var(--muted);
+    margin-bottom: 0.8rem;
+    font-style: italic;
+  }
+
+  .contact-details {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .contact-detail-label {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--tan);
+  }
+
+  .contact-detail-val {
+    font-size: 0.9rem;
+    color: var(--dark);
+  }
+
+  .contact-detail-val a {
+    color: var(--dark);
+    text-decoration: none;
+    border-bottom: 1px solid var(--tan);
+    transition: border-color 0.3s;
+  }
+
+  .contact-detail-val a:hover { border-color: var(--rust); }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-group label {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(61, 43, 31, 0.3);
+    padding: 0.6rem 0;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 0.9rem;
+    color: var(--dark);
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+
+  .form-group select {
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-bottom-color: var(--rust);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .form-submit {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    background: var(--dark);
+    color: var(--cream);
+    border: 1px solid var(--dark);
+    padding: 1rem 2rem;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background 0.3s;
+  }
+
+  .form-submit:hover { background: var(--brown); }
+
+  .form-success {
+    display: none;
+    padding: 1rem;
+    border: 1px solid rgba(139, 58, 42, 0.4);
+    color: var(--rust);
+    font-style: italic;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--dark);
+    color: rgba(242, 234, 216, 0.4);
+    padding: 2.5rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(196, 169, 125, 0.1);
+  }
+
+  .footer-logo {
+    font-family: 'Special Elite', cursive;
+    font-size: 1.1rem;
+    color: var(--tan);
+    text-decoration: none;
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    font-style: italic;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(242, 234, 216, 0.35);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--tan); }
+
+  /* ─── TOAST ─── */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--dark);
+    color: var(--cream);
+    font-family: 'Special Elite', cursive;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    padding: 0.9rem 2rem;
+    border: 1px solid var(--tan);
+    z-index: 300;
+    transition: transform 0.4s ease;
+    white-space: nowrap;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    section { padding: 4rem 2rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .work-grid { grid-template-columns: 1fr 1fr; }
+    .work-item.wide { grid-column: span 2; }
+    .merch-grid { grid-template-columns: 1fr 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .work-grid { grid-template-columns: 1fr; }
+    .work-item.wide { grid-column: span 1; aspect-ratio: 4/3; }
+    .merch-grid { grid-template-columns: 1fr 1fr; }
+    .hero-title { font-size: clamp(3rem, 18vw, 6rem); }
+  }
+
+  /* ─── SCROLL FADE ─── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">SNEIPAS</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#merch">Merch</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-border-top"></div>
+  <p class="hero-year">Est. MMX · sneipas.se</p>
+  <h1 class="hero-title">SNE<em>I</em>PAS</h1>
+  <p class="hero-sub">Walking backwards. Creating forwards.</p>
+  <a href="#work" class="hero-cta">View Our Work</a>
+  <div class="hero-border-bottom"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p class="section-label">About the Studio</p>
+      <h2 class="section-title">We make things worth being made.</h2>
+      <div class="section-divider"></div>
+      <p>Sneipas, spelled backwards from Sapiens, is an independent creative studio based in Sweden. It chooses to walk in the opposite direction of  "wisdom," "progress," “forward". </p>
+      <p>Working with the intersection of texts, visuals and sounds, it aims to produce works that carries weight without over-production.</p>
+      <p>The idea is seeing a new world through old lens, making things worth remembering and reflections.</p>
+    </div>
+    <div class="about-visual fade-in">
+      <div class="about-card">
+        <div class="about-card-num">XI</div>
+        <div class="about-card-label">Years of Practice</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-num">20+</div>
+        <div class="about-card-label">Projects Completed</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-num">SE · EU</div>
+        <div class="about-card-label">Operating From</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="work-header fade-in">
+    <p class="section-label">Portfolio</p>
+    <h2 class="section-title">Selected Work</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="work-filters fade-in">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="photo">Photography</button>
+    <button class="filter-btn" data-filter="video">Film</button>
+    <button class="filter-btn" data-filter="design">Design</button>
+  </div>
+
+  <div class="work-grid" id="workGrid">
+    <!-- Work items — replace src with actual images/videos -->
+    <div class="work-item wide fade-in" data-type="video" data-title="Monochrome Study No. 1" data-category="video"
+         style="background: linear-gradient(135deg, #2a1f18, #4a3428);"
+         onclick="openLightbox('video', null, 'Monochrome Study No. 1 — Film, 2024')">
+      <div class="work-placeholder">
+        <div class="work-placeholder-icon">▶</div>
+        <div class="work-placeholder-type">Film · Replace with video</div>
+      </div>
+      <div class="work-overlay">
+        <div class="work-overlay-title">Monochrome Study No. 1</div>
+        <div class="work-overlay-type">Film · 2024</div>
+      </div>
+    </div>
+
+    <div class="work-item fade-in" data-category="photo"
+         style="background: linear-gradient(160deg, #3d2b1f, #5c4030);"
+         onclick="openLightbox('image', null, 'Portrait Series — Photography, 2024')">
+      <div class="work-placeholder">
+        <div class="work-placeholder-icon">◼</div>
+        <div class="work-placeholder-type">Photo · Replace with image</div>
+      </div>
+      <div class="work-overlay">
+        <div class="work-overlay-title">Portrait Series</div>
+        <div class="work-overlay-type">Photography · 2024</div>
+      </div>
+    </div>
+
+    <div class="work-item fade-in" data-category="design"
+         style="background: linear-gradient(135deg, #1a1510, #3d2b1f);"
+         onclick="openLightbox('image', null, 'Brand Identity — Design, 2023')">
+      <div class="work-placeholder">
+        <div class="work-placeholder-icon">◼</div>
+        <div class="work-placeholder-type">Design · Replace with image</div>
+      </div>
+      <div class="work-overlay">
+        <div class="work-overlay-title">Brand Identity</div>
+        <div class="work-overlay-type">Design · 2023</div>
+      </div>
+    </div>
+
+    <div class="work-item fade-in" data-category="photo"
+         style="background: linear-gradient(135deg, #4a3428, #2a1f18);"
+         onclick="openLightbox('image', null, 'Landscape Archive — Photography, 2023')">
+      <div class="work-placeholder">
+        <div class="work-placeholder-icon">◼</div>
+        <div class="work-placeholder-type">Photo · Replace with image</div>
+      </div>
+      <div class="work-overlay">
+        <div class="work-overlay-title">Landscape Archive</div>
+        <div class="work-overlay-type">Photography · 2023</div>
+      </div>
+    </div>
+
+    <div class="work-item fade-in" data-category="video"
+         style="background: linear-gradient(160deg, #2a1f18, #4a3428);"
+         onclick="openLightbox('video', null, 'Dusk Loop — Short Film, 2023')">
+      <div class="work-placeholder">
+        <div class="work-placeholder-icon">▶</div>
+        <div class="work-placeholder-type">Film · Replace with video</div>
+      </div>
+      <div class="work-overlay">
+        <div class="work-overlay-title">Dusk Loop</div>
+        <div class="work-overlay-type">Short Film · 2023</div>
+      </div>
+    </div>
+
+    <div class="work-item wide fade-in" data-category="design"
+         style="background: linear-gradient(135deg, #3d2b1f, #1a1510);"
+         onclick="openLightbox('image', null, 'Catalogue Design — Editorial, 2022')">
+      <div class="work-placeholder">
+        <div class="work-placeholder-icon">◼</div>
+        <div class="work-placeholder-type">Design · Replace with image</div>
+      </div>
+      <div class="work-overlay">
+        <div class="work-overlay-title">Catalogue Design</div>
+        <div class="work-overlay-type">Editorial · 2022</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()">✕ Close</button>
+    <div class="lightbox-media" id="lightboxMedia">
+    </div>
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+  </div>
+</div>
+
+<!-- MERCH -->
+<section id="merch">
+  <div class="fade-in">
+    <p class="section-label">The Shop</p>
+    <h2 class="section-title">Merch & Editions</h2>
+    <div class="section-divider"></div>
+    <p class="merch-intro">Limited objects made with the same care as our work. To order, contact us directly.</p>
+  </div>
+
+  <div class="merch-grid">
+    <div class="merch-item fade-in">
+      <div class="merch-thumb" data-label="Replace with product image"
+           style="background: linear-gradient(160deg, #3d2b1f, #5c4030);">
+      </div>
+      <div class="merch-name">Archive Tee Vol. I</div>
+      <div class="merch-price">SEK 350</div>
+      <button class="merch-btn" onclick="inquireMerch('Archive Tee Vol. I')">Inquire</button>
+    </div>
+
+    <div class="merch-item fade-in">
+      <div class="merch-thumb" data-label="Replace with product image"
+           style="background: linear-gradient(135deg, #2a1f18, #4a3428);">
+      </div>
+      <div class="merch-name">Zine No. 3</div>
+      <div class="merch-price">SEK 180</div>
+      <button class="merch-btn" onclick="inquireMerch('Zine No. 3')">Inquire</button>
+    </div>
+
+    <div class="merch-item fade-in">
+      <div class="merch-thumb" data-label="Replace with product image"
+           style="background: linear-gradient(135deg, #4a3428, #2a1f18);">
+      </div>
+      <div class="merch-name">Canvas Print — Edition of 12</div>
+      <div class="merch-price">SEK 1 200</div>
+      <button class="merch-btn" onclick="inquireMerch('Canvas Print Edition of 12')">Inquire</button>
+    </div>
+
+    <div class="merch-item fade-in">
+      <div class="merch-thumb" data-label="Replace with product image"
+           style="background: linear-gradient(160deg, #1a1510, #3d2b1f);">
+      </div>
+      <div class="merch-name">Tote Bag</div>
+      <div class="merch-price">SEK 220</div>
+      <button class="merch-btn" onclick="inquireMerch('Tote Bag')">Inquire</button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="fade-in">
+      <p class="section-label">Get in Touch</p>
+      <h2 class="section-title">Let's make something.</h2>
+      <div class="section-divider"></div>
+      <div class="contact-info">
+        <p>We take on a limited number of projects each year. If you have something worth making, we'd like to hear about it.</p>
+      </div>
+      <div class="contact-details">
+        <div class="contact-detail">
+          <span class="contact-detail-label">Location</span>
+          <span class="contact-detail-val">Helsingborg, Skåne, Sweden</span>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Instagram</span>
+          <span class="contact-detail-val"><a href="https://instagram.com/sneipasse" target="_blank">@sneipasse</a></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <form class="contact-form" onsubmit="handleFormSubmit(event)">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" required placeholder="—">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required placeholder="—">
+        </div>
+        <div class="form-group">
+          <label for="type">Enquiry Type</label>
+          <select id="type" name="type">
+            <option value="">— Select —</option>
+            <option value="project">Project Collaboration</option>
+            <option value="merch">Merch / Shop</option>
+            <option value="press">Press & Media</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" placeholder="Tell us about your thoughts..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message</button>
+        <div class="form-success" id="formSuccess">
+          Message received. We'll be in touch shortly.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#hero" class="footer-logo">SNEIPAS</a>
+  <p class="footer-copy">© 2025 Sneipas. All rights reserved.</p>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#merch">Merch</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  /* ── Scroll fade ── */
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  /* ── Work filters ── */
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('#workGrid .work-item').forEach(item => {
+        if (filter === 'all' || item.dataset.category === filter) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  /* ── Lightbox ── */
+  function openLightbox(type, src, caption) {
+    const lb = document.getElementById('lightbox');
+    const media = document.getElementById('lightboxMedia');
+    const cap = document.getElementById('lightboxCaption');
+    lb.classList.add('open');
+    cap.textContent = caption || '';
+    if (type === 'video') {
+      media.innerHTML = src
+        ? `<video src="${src}" controls autoplay style="width:100%;height:100%;"></video>`
+        : `<div style="color:rgba(242,234,216,0.3);font-family:'Special Elite',cursive;font-size:0.7rem;letter-spacing:0.3em;text-align:center;">VIDEO PLACEHOLDER<br><span style="font-size:0.55rem;margin-top:0.5rem;display:block;">Replace src with your video URL</span></div>`;
+    } else {
+      media.innerHTML = src
+        ? `<img src="${src}" alt="${caption}" style="width:100%;height:100%;object-fit:contain;">`
+        : `<div style="color:rgba(242,234,216,0.3);font-family:'Special Elite',cursive;font-size:0.7rem;letter-spacing:0.3em;text-align:center;">IMAGE PLACEHOLDER<br><span style="font-size:0.55rem;margin-top:0.5rem;display:block;">Replace src with your image URL</span></div>`;
+    }
+  }
+
+  function closeLightbox() {
+    const lb = document.getElementById('lightbox');
+    lb.classList.remove('open');
+    document.getElementById('lightboxMedia').innerHTML = '';
+  }
+
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+
+  /* ── Merch inquiry ── */
+  function inquireMerch(product) {
+    const contactEl = document.getElementById('contact');
+    const typeEl = document.getElementById('type');
+    const msgEl = document.getElementById('message');
+    contactEl.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      typeEl.value = 'merch';
+      msgEl.value = `Hi, I'd like to inquire about: ${product}`;
+      msgEl.focus();
+    }, 600);
+    showToast('Redirected to contact form');
+  }
+
+  /* ── Contact form ── */
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const success = document.getElementById('formSuccess');
+    success.style.display = 'block';
+    e.target.reset();
+    showToast('Message sent successfully');
+    setTimeout(() => { success.style.display = 'none'; }, 6000);
+  }
+
+  /* ── Toast ── */
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  /* ── Nav active state on scroll ── */
+  const sections = document.querySelectorAll('section[id], nav');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    document.querySelectorAll('section[id]').forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 100) current = sec.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--dark)'
+        : '';
+    });
+  });
+</script>
+</body>
+</html>
